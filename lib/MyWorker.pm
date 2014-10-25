@@ -4,7 +4,7 @@ package MyWorker;
 
    sub run {
         my ($add) = @_;
-        $count=$count+add;
+        $count=$count+$add;
         return $count;
    }
 

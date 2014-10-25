@@ -1,6 +1,8 @@
 #!/usr/bin/env perl
 use AnyEvent;
 use AnyEvent::Fork::Pool;
+use lib './lib';
+
    # use AnyEvent::Fork is not needed
 
    # all possible parameters shown, with default values
@@ -22,16 +24,16 @@ use AnyEvent::Fork::Pool;
            async      => 0,
            on_error   => sub { die "FATAL: $_[0]\n" },
            on_event   => sub { my @ev = @_ },
-           init       => "MyWorker::init",
            serialiser => $AnyEvent::Fork::RPC::STRING_SERIALISER,
         );
 
-   for my $input (1..10) {
+   for my $input (1..100) {
       $pool->($input, sub {
-         print "MyWorker::run returned @_\n";
+        my ($ret) = @_;
+         print "MyWorker::run returned $ret\n";
       });
    }
 
-   undef $pool;
+   #undef $pool;
 
    $finish->recv;
