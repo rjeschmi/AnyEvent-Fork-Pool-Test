@@ -34,6 +34,6 @@ use lib './lib';
       });
    }
 
-   #undef $pool;
+   undef $pool;
 
    $finish->recv;
